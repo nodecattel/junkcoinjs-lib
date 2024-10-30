@@ -6,3 +6,5 @@ test/*.js
 test/integration/*.js
 !test/ts-node-register.js
 bun.lockb
+yarn.lock
+.yarn

@@ -15,7 +15,7 @@
   ],
   "scripts": {
     "audit": "better-npm-audit audit -l high",
-    "build": "npm run clean && tsc -p ./tsconfig.json",
+    "build": "npm run clean && tsc -p ./tsconfig.json && npm run formatjs",
     "build:tests": "npm run clean:jstests && tsc -p ./test/tsconfig.json",
     "clean": "rimraf src",
     "clean:jstests": "rimraf 'test/**/!(ts-node-register)*.js'",
@@ -53,13 +53,13 @@
     "bells-secp256k1": "0.1.1",
     "bip174": "2.1.1",
     "bs58check": "3.0.1",
-    "varuint-bitcoin": "1.1.2",
-    "typeforce": "1.18.0"
+    "typeforce": "1.18.0",
+    "varuint-bitcoin": "1.1.2"
   },
   "devDependencies": {
+    "@types/node": "^16.11.7",
     "@typescript-eslint/eslint-plugin": "^5.45.0",
     "@typescript-eslint/parser": "^5.45.0",
-    "@types/node": "^16.11.7",
     "eslint": "^8.29.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
