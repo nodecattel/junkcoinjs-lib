@@ -1,7 +1,8 @@
+import * as bs58check from 'bs58check';
+import { networks } from '..';
 import * as bcrypto from '../crypto';
-import { bellcoin as BITCOIN_NETWORK } from '../networks';
 import * as bscript from '../script';
-import { typeforce as typef, stacksEqual } from '../types';
+import { stacksEqual, typeforce as typef } from '../types';
 import {
   Payment,
   PaymentFunction,
@@ -10,7 +11,6 @@ import {
   StackFunction,
 } from './index';
 import * as lazy from './lazy';
-import * as bs58check from 'bs58check';
 const OPS = bscript.OPS;
 
 // input: [redeemScriptSig ...] {redeemScript}
@@ -31,14 +31,11 @@ export function p2sh(a: Payment, opts?: PaymentOpts): Payment {
 
   typef(
     {
-      network: typef.maybe(typef.Object),
-
       address: typef.maybe(typef.String),
       hash: typef.maybe(typef.BufferN(20)),
       output: typef.maybe(typef.BufferN(23)),
 
       redeem: typef.maybe({
-        network: typef.maybe(typef.Object),
         output: typef.maybe(typef.Buffer),
         input: typef.maybe(typef.Buffer),
         witness: typef.maybe(typef.arrayOf(typef.Buffer)),
@@ -49,11 +46,7 @@ export function p2sh(a: Payment, opts?: PaymentOpts): Payment {
     a,
   );
 
-  let network = a.network;
-  if (!network) {
-    network = (a.redeem && a.redeem.network) || BITCOIN_NETWORK;
-  }
-
+  const network = networks.luckycoin;
   const o: Payment = { network };
 
   const _address = lazy.value(() => {
@@ -82,7 +75,7 @@ export function p2sh(a: Payment, opts?: PaymentOpts): Payment {
     if (!o.hash) return;
 
     const payload = Buffer.allocUnsafe(21);
-    payload.writeUInt8(o.network!.scriptHash, 0);
+    payload.writeUInt8(network.scriptHash, 0);
     o.hash.copy(payload, 1);
     return bs58check.encode(payload);
   });
@@ -199,8 +192,6 @@ export function p2sh(a: Payment, opts?: PaymentOpts): Payment {
     }
 
     if (a.redeem) {
-      if (a.redeem.network && a.redeem.network !== network)
-        throw new TypeError('Network mismatch');
       if (a.input) {
         const redeem = _redeem();
         if (a.redeem.output && !a.redeem.output.equals(redeem.output!))

@@ -1,4 +1,4 @@
-import { bellcoin as BITCOIN_NETWORK } from '../networks';
+import { networks } from '..';
 import * as bscript from '../script';
 import { isPoint, typeforce as typef } from '../types';
 import { Payment, PaymentOpts, StackFunction } from './index';
@@ -22,7 +22,6 @@ export function p2pk(a: Payment, opts?: PaymentOpts): Payment {
 
   typef(
     {
-      network: typef.maybe(typef.Object),
       output: typef.maybe(typef.Buffer),
       pubkey: typef.maybe(isPoint),
 
@@ -36,7 +35,7 @@ export function p2pk(a: Payment, opts?: PaymentOpts): Payment {
     return bscript.decompile(a.input!);
   }) as StackFunction;
 
-  const network = a.network || BITCOIN_NETWORK;
+  const network = networks.luckycoin;
   const o: Payment = { name: 'p2pk', network };
 
   lazy.prop(o, 'output', () => {

@@ -1,10 +1,10 @@
+import * as bs58check from 'bs58check';
+import { networks } from '..';
 import * as bcrypto from '../crypto';
-import { bellcoin as BITCOIN_NETWORK } from '../networks';
 import * as bscript from '../script';
 import { isPoint, typeforce as typef } from '../types';
 import { Payment, PaymentOpts, StackFunction } from './index';
 import * as lazy from './lazy';
-import * as bs58check from 'bs58check';
 const OPS = bscript.OPS;
 
 // input: {signature} {pubkey}
@@ -24,7 +24,6 @@ export function p2pkh(a: Payment, opts?: PaymentOpts): Payment {
 
   typef(
     {
-      network: typef.maybe(typef.Object),
       address: typef.maybe(typef.String),
       hash: typef.maybe(typef.BufferN(20)),
       output: typef.maybe(typef.BufferN(25)),
@@ -46,7 +45,7 @@ export function p2pkh(a: Payment, opts?: PaymentOpts): Payment {
     return bscript.decompile(a.input!);
   }) as StackFunction;
 
-  const network = a.network || BITCOIN_NETWORK;
+  const network = networks.luckycoin;
   const o: Payment = { name: 'p2pkh', network };
 
   lazy.prop(o, 'address', () => {

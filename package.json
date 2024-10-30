@@ -1,22 +1,21 @@
 {
-  "name": "belcoinjs-lib",
-  "version": "0.1.3",
-  "description": "Client-side Bells JavaScript library",
+  "name": "luckycoinjs-lib",
+  "version": "0.0.1",
+  "description": "Client-side LuckyCoin JavaScript library",
   "main": "./src/index.js",
   "types": "./src/index.d.ts",
   "engines": {
     "node": ">=8.0.0"
   },
   "keywords": [
-    "belcoinjs",
-    "belcoin",
+    "lukycoinjs",
+    "lukycoin",
     "browserify",
-    "javascript",
-    "belcoinjs"
+    "javascript"
   ],
   "scripts": {
     "audit": "better-npm-audit audit -l high",
-    "build": "npm run clean && tsc -p ./tsconfig.json && npm run formatjs",
+    "build": "npm run clean && tsc -p ./tsconfig.json",
     "build:tests": "npm run clean:jstests && tsc -p ./test/tsconfig.json",
     "clean": "rimraf src",
     "clean:jstests": "rimraf 'test/**/!(ts-node-register)*.js'",

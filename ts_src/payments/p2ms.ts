@@ -1,6 +1,6 @@
-import { bellcoin as BITCOIN_NETWORK } from '../networks';
+import { networks } from '..';
 import * as bscript from '../script';
-import { isPoint, typeforce as typef, stacksEqual } from '../types';
+import { isPoint, stacksEqual, typeforce as typef } from '../types';
 import { Payment, PaymentOpts, Stack } from './index';
 import * as lazy from './lazy';
 const OPS = bscript.OPS;
@@ -35,7 +35,6 @@ export function p2ms(a: Payment, opts?: PaymentOpts): Payment {
 
   typef(
     {
-      network: typef.maybe(typef.Object),
       m: typef.maybe(typef.Number),
       n: typef.maybe(typef.Number),
       output: typef.maybe(typef.Buffer),
@@ -47,7 +46,7 @@ export function p2ms(a: Payment, opts?: PaymentOpts): Payment {
     a,
   );
 
-  const network = a.network || BITCOIN_NETWORK;
+  const network = networks.luckycoin;
   const o: Payment = { network };
 
   let chunks: Stack = [];

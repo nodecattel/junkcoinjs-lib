@@ -1,25 +1,25 @@
+import { bech32m } from 'bech32';
+import { isXOnlyPoint } from 'bells-secp256k1';
 import { Buffer as NBuffer } from 'buffer';
-import { bellcoin as BITCOIN_NETWORK } from '../networks';
+import { networks } from '..';
+import { fromBech32 } from '../address';
 import * as bscript from '../script';
 import {
-  typeforce as typef,
   isTaptree,
-  TAPLEAF_VERSION_MASK,
   stacksEqual,
+  TAPLEAF_VERSION_MASK,
+  typeforce as typef,
 } from '../types';
 import {
-  toHashTree,
-  rootHashFromPath,
   findScriptPath,
-  tapleafHash,
-  tweakKey,
   LEAF_VERSION_TAPSCRIPT,
+  rootHashFromPath,
+  tapleafHash,
+  toHashTree,
+  tweakKey,
 } from './bip341';
 import { Payment, PaymentOpts } from './index';
 import * as lazy from './lazy';
-import { bech32m } from 'bech32';
-import { fromBech32 } from '../address';
-import { isXOnlyPoint } from 'bells-secp256k1';
 
 const OPS = bscript.OPS;
 const TAPROOT_WITNESS_VERSION = 0x01;
@@ -49,7 +49,6 @@ export function p2tr(a: Payment, opts?: PaymentOpts): Payment {
     {
       address: typef.maybe(typef.String),
       input: typef.maybe(typef.BufferN(0)),
-      network: typef.maybe(typef.Object),
       output: typef.maybe(typef.BufferN(34)),
       internalPubkey: typef.maybe(typef.BufferN(32)),
       hash: typef.maybe(typef.BufferN(32)), // merkle root hash, the tweak
@@ -89,7 +88,7 @@ export function p2tr(a: Payment, opts?: PaymentOpts): Payment {
     return;
   });
 
-  const network = a.network || BITCOIN_NETWORK;
+  const network = networks.luckycoin;
   const o: Payment = { name: 'p2tr', network };
 
   lazy.prop(o, 'address', () => {
@@ -188,7 +187,7 @@ export function p2tr(a: Payment, opts?: PaymentOpts): Payment {
   if (opts.validate) {
     let pubkey: Buffer = NBuffer.from([]);
     if (a.address) {
-      if (network && network.bech32 !== _address().prefix)
+      if (network.bech32 !== _address().prefix)
         throw new TypeError('Invalid prefix or Network mismatch');
       if (_address().version !== TAPROOT_WITNESS_VERSION)
         throw new TypeError('Invalid address version');

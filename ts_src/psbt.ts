@@ -2,6 +2,7 @@ import { Psbt as PsbtBase } from 'bip174';
 import * as varuint from 'bip174/src/lib/converter/varint';
 import {
   Bip32Derivation,
+  Transaction as ITransaction,
   KeyValue,
   PartialSig,
   PsbtGlobalUpdate,
@@ -9,40 +10,40 @@ import {
   PsbtInputUpdate,
   PsbtOutput,
   PsbtOutputUpdate,
-  Transaction as ITransaction,
-  TransactionFromBuffer,
   TapKeySig,
   TapScriptSig,
+  TransactionFromBuffer,
 } from 'bip174/src/lib/interfaces';
 import { checkForInput, checkForOutput } from 'bip174/src/lib/utils';
+import { networks } from '.';
 import { fromOutputScript, toOutputScript } from './address';
 import { cloneBuffer, reverseBuffer } from './bufferutils';
-import { bellcoin as btcNetwork, Network } from './networks';
+import { Network } from './networks';
 import * as payments from './payments';
 import { tapleafHash } from './payments/bip341';
-import * as bscript from './script';
-import { Output, Transaction } from './transaction';
 import {
-  toXOnly,
-  tapScriptFinalizer,
-  serializeTaprootSignature,
-  isTaprootInput,
   checkTaprootInputFields,
-  checkTaprootOutputFields,
   checkTaprootInputForSigs,
+  checkTaprootOutputFields,
+  isTaprootInput,
+  serializeTaprootSignature,
+  tapScriptFinalizer,
+  toXOnly,
 } from './psbt/bip371';
 import {
-  witnessStackToScriptWitness,
   checkInputForSig,
-  pubkeyInScript,
   isP2MS,
   isP2PK,
   isP2PKH,
-  isP2WPKH,
-  isP2WSHScript,
   isP2SHScript,
   isP2TR,
+  isP2WPKH,
+  isP2WSHScript,
+  pubkeyInScript,
+  witnessStackToScriptWitness,
 } from './psbt/psbtutils';
+import * as bscript from './script';
+import { Output, Transaction } from './transaction';
 
 export interface TransactionInput {
   hash: string | Buffer;
@@ -78,7 +79,7 @@ const DEFAULT_OPTS: PsbtOpts = {
    * A bitcoinjs Network object. This is only used if you pass an `address`
    * parameter to addOutput. Otherwise it is not needed and can be left default.
    */
-  network: btcNetwork,
+  network: networks.luckycoin,
   /**
    * When extractTransaction is called, the fee rate is checked.
    * THIS IS NOT TO BE RELIED ON.
@@ -215,7 +216,7 @@ export class Psbt {
     return this.__CACHE.__TX.outs.map(output => {
       let address;
       try {
-        address = fromOutputScript(output.script, this.opts.network);
+        address = fromOutputScript(output.script);
       } catch (_) {
         //
       }
@@ -331,8 +332,7 @@ export class Psbt {
     checkInputsForPartialSig(this.data.inputs, 'addOutput');
     const { address } = outputData as any;
     if (typeof address === 'string') {
-      const { network } = this.opts;
-      const script = toOutputScript(address, network);
+      const script = toOutputScript(address);
       outputData = Object.assign({}, outputData, { script });
     }
     checkTaprootOutputFields(outputData, outputData, 'addOutput');

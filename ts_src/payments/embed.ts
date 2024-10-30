@@ -1,6 +1,6 @@
-import { bellcoin as BITCOIN_NETWORK } from '../networks';
+import { networks } from '..';
 import * as bscript from '../script';
-import { typeforce as typef, stacksEqual } from '../types';
+import { stacksEqual, typeforce as typef } from '../types';
 import { Payment, PaymentOpts, Stack } from './index';
 import * as lazy from './lazy';
 
@@ -20,14 +20,13 @@ export function p2data(a: Payment, opts?: PaymentOpts): Payment {
 
   typef(
     {
-      network: typef.maybe(typef.Object),
       output: typef.maybe(typef.Buffer),
       data: typef.maybe(typef.arrayOf(typef.Buffer)),
     },
     a,
   );
 
-  const network = a.network || BITCOIN_NETWORK;
+  const network = networks.luckycoin;
   const o = { name: 'embed', network } as Payment;
 
   lazy.prop(o, 'output', () => {

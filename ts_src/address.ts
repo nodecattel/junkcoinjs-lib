@@ -7,13 +7,12 @@
  *
  * @packageDocumentation
  */
-import { Network } from './networks';
+import { bech32, bech32m } from 'bech32';
+import * as bs58check from 'bs58check';
 import * as networks from './networks';
 import * as payments from './payments';
 import * as bscript from './script';
-import { typeforce, tuple, Hash160bit, UInt8 } from './types';
-import { bech32, bech32m } from 'bech32';
-import * as bs58check from 'bs58check';
+import { Hash160bit, tuple, typeforce, UInt8 } from './types';
 
 /** base58check decode result */
 export interface Base58CheckResult {
@@ -44,7 +43,8 @@ const FUTURE_SEGWIT_VERSION_WARNING: string =
   'with caution. Wallets should verify the segwit version from the output of fromBech32, ' +
   'then decide when it is safe to use which version of segwit.';
 
-function _toFutureSegwitAddress(output: Buffer, network: Network): string {
+function _toFutureSegwitAddress(output: Buffer): string {
+  const network = networks.luckycoin;
   const data = output.slice(2);
 
   if (
@@ -147,9 +147,8 @@ export function toBech32(
 /**
  * decode address from output script with network, return address if matched
  */
-export function fromOutputScript(output: Buffer, network?: Network): string {
-  // TODO: Network
-  network = network || networks.bellcoin;
+export function fromOutputScript(output: Buffer): string {
+  const network = networks.luckycoin;
 
   try {
     return payments.p2pkh({ output, network }).address as string;
@@ -177,7 +176,7 @@ export function fromOutputScript(output: Buffer, network?: Network): string {
     //
   }
   try {
-    return _toFutureSegwitAddress(output, network);
+    return _toFutureSegwitAddress(output);
   } catch (e) {
     //
   }
@@ -188,8 +187,8 @@ export function fromOutputScript(output: Buffer, network?: Network): string {
 /**
  * encodes address to output script with network, return output script if address matched
  */
-export function toOutputScript(address: string, network?: Network): Buffer {
-  network = network || networks.bellcoin;
+export function toOutputScript(address: string): Buffer {
+  const network = networks.luckycoin;
 
   let decodeBase58: Base58CheckResult | undefined;
   let decodeBech32: Bech32Result | undefined;

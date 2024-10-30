@@ -1,10 +1,10 @@
+import { bech32 } from 'bech32';
+import { networks } from '..';
 import * as bcrypto from '../crypto';
-import { bellcoin as BITCOIN_NETWORK } from '../networks';
 import * as bscript from '../script';
-import { isPoint, typeforce as typef, stacksEqual } from '../types';
+import { isPoint, stacksEqual, typeforce as typef } from '../types';
 import { Payment, PaymentOpts, StackElement, StackFunction } from './index';
 import * as lazy from './lazy';
-import { bech32 } from 'bech32';
 const OPS = bscript.OPS;
 
 const EMPTY_BUFFER = Buffer.alloc(0);
@@ -40,15 +40,12 @@ export function p2wsh(a: Payment, opts?: PaymentOpts): Payment {
 
   typef(
     {
-      network: typef.maybe(typef.Object),
-
       address: typef.maybe(typef.String),
       hash: typef.maybe(typef.BufferN(32)),
       output: typef.maybe(typef.BufferN(34)),
 
       redeem: typef.maybe({
         input: typef.maybe(typef.Buffer),
-        network: typef.maybe(typef.Object),
         output: typef.maybe(typef.Buffer),
         witness: typef.maybe(typef.arrayOf(typef.Buffer)),
       }),
@@ -72,18 +69,14 @@ export function p2wsh(a: Payment, opts?: PaymentOpts): Payment {
     return bscript.decompile(a.redeem!.input!);
   }) as StackFunction;
 
-  let network = a.network;
-  if (!network) {
-    network = (a.redeem && a.redeem.network) || BITCOIN_NETWORK;
-  }
-
+  const network = networks.luckycoin;
   const o: Payment = { network };
 
   lazy.prop(o, 'address', () => {
     if (!o.hash) return;
     const words = bech32.toWords(o.hash);
     words.unshift(0x00);
-    return bech32.encode(network!.bech32, words);
+    return bech32.encode(network.bech32, words);
   });
   lazy.prop(o, 'hash', () => {
     if (a.output) return a.output.slice(2);
@@ -168,10 +161,6 @@ export function p2wsh(a: Payment, opts?: PaymentOpts): Payment {
     }
 
     if (a.redeem) {
-      if (a.redeem.network && a.redeem.network !== network)
-        throw new TypeError('Network mismatch');
-
-      // is there two redeem sources?
       if (
         a.redeem.input &&
         a.redeem.input.length > 0 &&

@@ -1,10 +1,10 @@
+import { bech32 } from 'bech32';
+import { networks } from '..';
 import * as bcrypto from '../crypto';
-import { bellcoin as BITCOIN_NETWORK } from '../networks';
 import * as bscript from '../script';
 import { isPoint, typeforce as typef } from '../types';
 import { Payment, PaymentOpts } from './index';
 import * as lazy from './lazy';
-import { bech32 } from 'bech32';
 const OPS = bscript.OPS;
 
 const EMPTY_BUFFER = Buffer.alloc(0);
@@ -30,7 +30,6 @@ export function p2wpkh(a: Payment, opts?: PaymentOpts): Payment {
       address: typef.maybe(typef.String),
       hash: typef.maybe(typef.BufferN(20)),
       input: typef.maybe(typef.BufferN(0)),
-      network: typef.maybe(typef.Object),
       output: typef.maybe(typef.BufferN(22)),
       pubkey: typef.maybe(isPoint),
       signature: typef.maybe(bscript.isCanonicalScriptSignature),
@@ -50,7 +49,7 @@ export function p2wpkh(a: Payment, opts?: PaymentOpts): Payment {
     };
   });
 
-  const network = a.network || BITCOIN_NETWORK;
+  const network = networks.luckycoin;
   const o: Payment = { name: 'p2wpkh', network };
 
   lazy.prop(o, 'address', () => {
@@ -92,7 +91,7 @@ export function p2wpkh(a: Payment, opts?: PaymentOpts): Payment {
   if (opts.validate) {
     let hash: Buffer = Buffer.from([]);
     if (a.address) {
-      if (network && network.bech32 !== _address().prefix)
+      if (network.bech32 !== _address().prefix)
         throw new TypeError('Invalid prefix or Network mismatch');
       if (_address().version !== 0x00)
         throw new TypeError('Invalid address version');
