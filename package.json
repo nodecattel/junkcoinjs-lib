@@ -53,6 +53,9 @@
     "bells-secp256k1": "0.1.1",
     "bip174": "2.1.1",
     "bs58check": "3.0.1",
+    "luckycoinhdw": "file:.yalc/luckycoinhdw",
+    "luckycoinjs-lib": "file:.yalc/luckycoinjs-lib",
+    "luckycoinpair": "file:.yalc/luckycoinpair",
     "typeforce": "1.18.0",
     "varuint-bitcoin": "1.1.2"
   },

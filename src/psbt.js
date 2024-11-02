@@ -27,7 +27,8 @@ const DEFAULT_OPTS = {
    * THIS IS NOT TO BE RELIED ON.
    * It is only here as a last ditch effort to prevent sending a 500 BTC fee etc.
    */
-  maximumFeeRate: 5000, // satoshi per byte
+  //From experience, a pretty high fee rate is needed to get a transaction to confirm
+  maximumFeeRate: 50000, // satoshi per byte
 };
 /**
  * Psbt class can parse and generate a PSBT binary based off of the BIP174.

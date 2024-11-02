@@ -8,3 +8,5 @@ test/integration/*.js
 bun.lockb
 yarn.lock
 .yarn
+.yalc/*
+yalc.lock
