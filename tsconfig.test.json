@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    "rootDir": ".",
+    "noEmit": true,
+    "allowJs": true,
+    "types": ["node", "mocha"]
+  },
+  "include": ["ts_src/**/*.ts", "tests/**/*.ts"],
+  "exclude": ["node_modules/**/*"]
+}

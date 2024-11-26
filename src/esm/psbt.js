@@ -84,7 +84,6 @@ const DEFAULT_OPTS = {
  *   Transaction object. Such as fee rate not being larger than maximumFeeRate etc.
  */
 export class Psbt {
-  data;
   static fromBase64(data, opts = {}) {
     const buffer = tools.fromBase64(data);
     return this.fromBuffer(buffer, opts);
@@ -99,8 +98,6 @@ export class Psbt {
     checkTxForDupeIns(psbt.__CACHE.__TX, psbt.__CACHE);
     return psbt;
   }
-  __CACHE;
-  opts;
   constructor(opts = {}, data = new PsbtBase(new PsbtTransaction())) {
     this.data = data;
     // set defaults
@@ -921,7 +918,6 @@ const transactionFromBuffer = buffer => new PsbtTransaction(buffer);
  * It contains a bitcoinjs-lib Transaction object.
  */
 class PsbtTransaction {
-  tx;
   constructor(buffer = Uint8Array.from([2, 0, 0, 0, 0, 0, 0, 0, 0, 0])) {
     this.tx = Transaction.fromBuffer(buffer);
     checkTxEmpty(this.tx);

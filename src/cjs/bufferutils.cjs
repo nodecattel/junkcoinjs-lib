@@ -33,16 +33,28 @@ var __setModuleDefault =
       });
 var __importStar =
   (this && this.__importStar) ||
-  function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null)
-      for (var k in mod)
-        if (k !== 'default' && Object.prototype.hasOwnProperty.call(mod, k))
-          __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-  };
+  (function () {
+    var ownKeys = function (o) {
+      ownKeys =
+        Object.getOwnPropertyNames ||
+        function (o) {
+          var ar = [];
+          for (var k in o)
+            if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+          return ar;
+        };
+      return ownKeys(o);
+    };
+    return function (mod) {
+      if (mod && mod.__esModule) return mod;
+      var result = {};
+      if (mod != null)
+        for (var k = ownKeys(mod), i = 0; i < k.length; i++)
+          if (k[i] !== 'default') __createBinding(result, mod, k[i]);
+      __setModuleDefault(result, mod);
+      return result;
+    };
+  })();
 Object.defineProperty(exports, '__esModule', { value: true });
 exports.BufferReader = exports.BufferWriter = exports.varuint = void 0;
 exports.reverseBuffer = reverseBuffer;
@@ -90,8 +102,6 @@ function cloneBuffer(buffer) {
  * Helper class for serialization of bitcoin data types into a pre-allocated buffer.
  */
 class BufferWriter {
-  buffer;
-  offset;
   static withCapacity(size) {
     return new BufferWriter(new Uint8Array(size));
   }
@@ -149,8 +159,6 @@ exports.BufferWriter = BufferWriter;
  * Helper class for reading of bitcoin data types from a buffer.
  */
 class BufferReader {
-  buffer;
-  offset;
   constructor(buffer, offset = 0) {
     this.buffer = buffer;
     this.offset = offset;

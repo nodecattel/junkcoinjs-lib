@@ -41,8 +41,6 @@ export function cloneBuffer(buffer) {
  * Helper class for serialization of bitcoin data types into a pre-allocated buffer.
  */
 export class BufferWriter {
-  buffer;
-  offset;
   static withCapacity(size) {
     return new BufferWriter(new Uint8Array(size));
   }
@@ -99,8 +97,6 @@ export class BufferWriter {
  * Helper class for reading of bitcoin data types from a buffer.
  */
 export class BufferReader {
-  buffer;
-  offset;
   constructor(buffer, offset = 0) {
     this.buffer = buffer;
     this.offset = offset;

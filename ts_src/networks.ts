@@ -1,9 +1,9 @@
 // https://en.bitcoin.it/wiki/List_of_address_prefixes
-// Dogecoin BIP32 is a proposed standard: https://bitcointalk.org/index.php?topic=409731
+// Junkcoin BIP32 configuration based on its chain parameters.
 
 /**
- * Represents a Bitcoin network configuration，including messagePrefix, bech32, bip32, pubKeyHash, scriptHash, wif.
- * Support bitcoin、bitcoin testnet and bitcoin regtest.
+ * Represents a Junkcoin network configuration, including messagePrefix, bech32, bip32, pubKeyHash, scriptHash, wif.
+ * Supports junkcoin, junkcoin testnet, and junkcoin regtest.
  * @packageDocumentation
  */
 export interface Network {
@@ -21,49 +21,41 @@ interface Bip32 {
 }
 
 /**
- * Represents the Bitcoin network configuration.
+ * Represents the Junkcoin mainnet network configuration.
  */
-export const bitcoin: Network = {
-  /**
-   * The message prefix used for signing Bitcoin messages.
-   */
-  messagePrefix: '\x18Bitcoin Signed Message:\n',
-  /**
-   * The Bech32 prefix used for Bitcoin addresses.
-   */
-  bech32: 'bc',
-  /**
-   * The BIP32 key prefixes for Bitcoin.
-   */
+export const junkcoin: Network = {
+  messagePrefix: '\x19Junkcoin Signed Message:\n',
+  bech32: 'junk',
   bip32: {
-    /**
-     * The public key prefix for BIP32 extended public keys.
-     */
     public: 0x0488b21e,
-    /**
-     * The private key prefix for BIP32 extended private keys.
-     */
     private: 0x0488ade4,
   },
-  /**
-   * The prefix for Bitcoin public key hashes.
-   */
-  pubKeyHash: 0x00,
-  /**
-   * The prefix for Bitcoin script hashes.
-   */
+  pubKeyHash: 0x10,
   scriptHash: 0x05,
-  /**
-   * The prefix for Bitcoin Wallet Import Format (WIF) private keys.
-   */
-  wif: 0x80,
+  wif: 0x90,
 };
+
 /**
- * Represents the regtest network configuration.
+ * Represents the Junkcoin testnet network configuration.
  */
-export const regtest: Network = {
-  messagePrefix: '\x18Bitcoin Signed Message:\n',
-  bech32: 'bcrt',
+export const junkcoinTestnet: Network = {
+  messagePrefix: '\x19Junkcoin Testnet Signed Message:\n',
+  bech32: 'tjunk',
+  bip32: {
+    public: 0x02facafd,
+    private: 0x02fac398,
+  },
+  pubKeyHash: 0x2f,
+  scriptHash: 0x05,
+  wif: 0x99,
+};
+
+/**
+ * Represents the Junkcoin regtest network configuration.
+ */
+export const junkcoinRegtest: Network = {
+  messagePrefix: '\x19Junkcoin Regtest Signed Message:\n',
+  bech32: 'rjunk',
   bip32: {
     public: 0x043587cf,
     private: 0x04358394,
@@ -72,17 +64,10 @@ export const regtest: Network = {
   scriptHash: 0xc4,
   wif: 0xef,
 };
+
 /**
- * Represents the testnet network configuration.
+ * Aliases for compatibility with existing references to bitcoin, regtest, and testnet.
  */
-export const testnet: Network = {
-  messagePrefix: '\x18Bitcoin Signed Message:\n',
-  bech32: 'tb',
-  bip32: {
-    public: 0x043587cf,
-    private: 0x04358394,
-  },
-  pubKeyHash: 0x6f,
-  scriptHash: 0xc4,
-  wif: 0xef,
-};
+export const bitcoin = junkcoin; // Alias Junkcoin mainnet as Bitcoin
+export const testnet = junkcoinTestnet; // Alias Junkcoin testnet
+export const regtest = junkcoinRegtest; // Alias Junkcoin regtest

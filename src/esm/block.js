@@ -16,6 +16,16 @@ const errorWitnessNotSegwit = new TypeError(
   'Cannot compute witness commit for non-segwit block',
 );
 export class Block {
+  constructor() {
+    this.version = 1;
+    this.prevHash = undefined;
+    this.merkleRoot = undefined;
+    this.timestamp = 0;
+    this.witnessCommit = undefined;
+    this.bits = 0;
+    this.nonce = 0;
+    this.transactions = undefined;
+  }
   static fromBuffer(buffer) {
     if (buffer.length < 80) throw new Error('Buffer too small (< 80 bytes)');
     const bufferReader = new BufferReader(buffer);
@@ -73,14 +83,6 @@ export class Block {
         )
       : rootHash;
   }
-  version = 1;
-  prevHash = undefined;
-  merkleRoot = undefined;
-  timestamp = 0;
-  witnessCommit = undefined;
-  bits = 0;
-  nonce = 0;
-  transactions = undefined;
   getWitnessCommit() {
     if (!txesHaveWitnessCommit(this.transactions)) return null;
     // The merkle root for the witness data is in an OP_RETURN output.

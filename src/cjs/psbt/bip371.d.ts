@@ -5,7 +5,7 @@ import { PsbtInput, PsbtOutput, TapLeaf } from 'bip174';
  * @param pubKey The public key to convert.
  * @returns The X-only public key.
  */
-export declare const toXOnly: (pubKey: Uint8Array) => Uint8Array;
+export declare const toXOnly: (pubKey: Uint8Array) => Uint8Array<ArrayBuffer>;
 /**
  * Default tapscript finalizer. It searches for the `tapLeafHashToFinalize` if provided.
  * Otherwise it will search for the tapleaf that has at least one signature and has the shortest path.

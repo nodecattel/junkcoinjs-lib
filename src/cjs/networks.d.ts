@@ -1,6 +1,6 @@
 /**
- * Represents a Bitcoin network configuration，including messagePrefix, bech32, bip32, pubKeyHash, scriptHash, wif.
- * Support bitcoin、bitcoin testnet and bitcoin regtest.
+ * Represents a Junkcoin network configuration, including messagePrefix, bech32, bip32, pubKeyHash, scriptHash, wif.
+ * Supports junkcoin, junkcoin testnet, and junkcoin regtest.
  * @packageDocumentation
  */
 export interface Network {
@@ -16,15 +16,21 @@ interface Bip32 {
     private: number;
 }
 /**
- * Represents the Bitcoin network configuration.
+ * Represents the Junkcoin mainnet network configuration.
+ */
+export declare const junkcoin: Network;
+/**
+ * Represents the Junkcoin testnet network configuration.
+ */
+export declare const junkcoinTestnet: Network;
+/**
+ * Represents the Junkcoin regtest network configuration.
+ */
+export declare const junkcoinRegtest: Network;
+/**
+ * Aliases for compatibility with existing references to bitcoin, regtest, and testnet.
  */
 export declare const bitcoin: Network;
-/**
- * Represents the regtest network configuration.
- */
-export declare const regtest: Network;
-/**
- * Represents the testnet network configuration.
- */
 export declare const testnet: Network;
+export declare const regtest: Network;
 export {};

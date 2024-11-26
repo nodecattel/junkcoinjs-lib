@@ -33,16 +33,28 @@ var __setModuleDefault =
       });
 var __importStar =
   (this && this.__importStar) ||
-  function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null)
-      for (var k in mod)
-        if (k !== 'default' && Object.prototype.hasOwnProperty.call(mod, k))
-          __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-  };
+  (function () {
+    var ownKeys = function (o) {
+      ownKeys =
+        Object.getOwnPropertyNames ||
+        function (o) {
+          var ar = [];
+          for (var k in o)
+            if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+          return ar;
+        };
+      return ownKeys(o);
+    };
+    return function (mod) {
+      if (mod && mod.__esModule) return mod;
+      var result = {};
+      if (mod != null)
+        for (var k = ownKeys(mod), i = 0; i < k.length; i++)
+          if (k[i] !== 'default') __createBinding(result, mod, k[i]);
+      __setModuleDefault(result, mod);
+      return result;
+    };
+  })();
 Object.defineProperty(exports, '__esModule', { value: true });
 exports.Transaction = void 0;
 const bufferutils_js_1 = require('./bufferutils.cjs');
@@ -86,16 +98,12 @@ function isOutput(out) {
  * Represents a Bitcoin transaction.
  */
 class Transaction {
-  static DEFAULT_SEQUENCE = 0xffffffff;
-  static SIGHASH_DEFAULT = 0x00;
-  static SIGHASH_ALL = 0x01;
-  static SIGHASH_NONE = 0x02;
-  static SIGHASH_SINGLE = 0x03;
-  static SIGHASH_ANYONECANPAY = 0x80;
-  static SIGHASH_OUTPUT_MASK = 0x03;
-  static SIGHASH_INPUT_MASK = 0x80;
-  static ADVANCED_TRANSACTION_MARKER = 0x00;
-  static ADVANCED_TRANSACTION_FLAG = 0x01;
+  constructor() {
+    this.version = 1;
+    this.locktime = 0;
+    this.ins = [];
+    this.outs = [];
+  }
   static fromBuffer(buffer, _NO_STRICT) {
     const bufferReader = new bufferutils_js_1.BufferReader(buffer);
     const tx = new Transaction();
@@ -152,10 +160,6 @@ class Transaction {
     }
     return true;
   }
-  version = 1;
-  locktime = 0;
-  ins = [];
-  outs = [];
   isCoinbase() {
     return (
       this.ins.length === 1 && Transaction.isCoinbaseHash(this.ins[0].hash)
@@ -605,3 +609,13 @@ class Transaction {
   }
 }
 exports.Transaction = Transaction;
+Transaction.DEFAULT_SEQUENCE = 0xffffffff;
+Transaction.SIGHASH_DEFAULT = 0x00;
+Transaction.SIGHASH_ALL = 0x01;
+Transaction.SIGHASH_NONE = 0x02;
+Transaction.SIGHASH_SINGLE = 0x03;
+Transaction.SIGHASH_ANYONECANPAY = 0x80;
+Transaction.SIGHASH_OUTPUT_MASK = 0x03;
+Transaction.SIGHASH_INPUT_MASK = 0x80;
+Transaction.ADVANCED_TRANSACTION_MARKER = 0x00;
+Transaction.ADVANCED_TRANSACTION_FLAG = 0x01;

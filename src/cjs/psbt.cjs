@@ -33,16 +33,28 @@ var __setModuleDefault =
       });
 var __importStar =
   (this && this.__importStar) ||
-  function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null)
-      for (var k in mod)
-        if (k !== 'default' && Object.prototype.hasOwnProperty.call(mod, k))
-          __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-  };
+  (function () {
+    var ownKeys = function (o) {
+      ownKeys =
+        Object.getOwnPropertyNames ||
+        function (o) {
+          var ar = [];
+          for (var k in o)
+            if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+          return ar;
+        };
+      return ownKeys(o);
+    };
+    return function (mod) {
+      if (mod && mod.__esModule) return mod;
+      var result = {};
+      if (mod != null)
+        for (var k = ownKeys(mod), i = 0; i < k.length; i++)
+          if (k[i] !== 'default') __createBinding(result, mod, k[i]);
+      __setModuleDefault(result, mod);
+      return result;
+    };
+  })();
 Object.defineProperty(exports, '__esModule', { value: true });
 exports.Psbt = void 0;
 const bip174_1 = require('bip174');
@@ -112,7 +124,6 @@ const DEFAULT_OPTS = {
  *   Transaction object. Such as fee rate not being larger than maximumFeeRate etc.
  */
 class Psbt {
-  data;
   static fromBase64(data, opts = {}) {
     const buffer = tools.fromBase64(data);
     return this.fromBuffer(buffer, opts);
@@ -127,8 +138,6 @@ class Psbt {
     checkTxForDupeIns(psbt.__CACHE.__TX, psbt.__CACHE);
     return psbt;
   }
-  __CACHE;
-  opts;
   constructor(opts = {}, data = new bip174_1.Psbt(new PsbtTransaction())) {
     this.data = data;
     // set defaults
@@ -981,7 +990,6 @@ const transactionFromBuffer = buffer => new PsbtTransaction(buffer);
  * It contains a bitcoinjs-lib Transaction object.
  */
 class PsbtTransaction {
-  tx;
   constructor(buffer = Uint8Array.from([2, 0, 0, 0, 0, 0, 0, 0, 0, 0])) {
     this.tx = transaction_js_1.Transaction.fromBuffer(buffer);
     checkTxEmpty(this.tx);
