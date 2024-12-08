@@ -5,10 +5,10 @@ exports.junkcoin = {
   messagePrefix: '\u0018Junkcoin Signed Message:\n',
   bech32: 'jkc',
   bip32: {
-    public: 0x02facafd,
-    private: 0x02fac398,
+    public: 0x0488b21e,
+    private: 0x0488ade4,
   },
-  pubKeyHash: 0x2f,
+  pubKeyHash: 0x10,
   scriptHash: 0x05,
   wif: 0x99,
 };

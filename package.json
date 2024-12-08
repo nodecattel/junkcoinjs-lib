@@ -37,12 +37,13 @@
     "nobuild:unit": "npm run mocha:ts -- 'test/*.ts'",
     "prettier": "prettier \"ts_src/**/*.ts\" \"test/**/*.ts\" --ignore-path ./.prettierignore",
     "prettierjs": "prettier \"src/**/*.js\" --ignore-path ./.prettierignore",
-    "test": "npm run build && npm run format:ci && npm run lint && npm run nobuild:coverage",
+    "test": "jest",
+    "test:watch": "jest --watch",
     "unit": "npm run build && npm run nobuild:unit"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/bitcoinjs/bitcoinjs-lib.git"
+    "url": "https://github.com/nodecattel/junkcoinjs-lib.git"
   },
   "files": [
     "src"
@@ -53,18 +54,27 @@
     "bells-secp256k1": "0.1.1",
     "bip174": "2.1.1",
     "bs58check": "3.0.1",
+    "ecpair": "^3.0.0-rc.0",
+    "junkcoinpair": "^0.0.1",
+    "tiny-secp256k1": "^2.2.3",
     "typeforce": "1.18.0",
     "varuint-bitcoin": "1.1.2"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.14",
     "@types/node": "^16.18.121",
     "@typescript-eslint/eslint-plugin": "^5.45.0",
     "@typescript-eslint/parser": "^5.45.0",
+    "assert": "^2.1.0",
     "eslint": "^8.29.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "jest": "^29.7.0",
+    "junkcoinjs-lib": "^0.0.1",
+    "mocha": "^11.0.1",
     "prettier": "^2.8.0",
     "rimraf": "^2.6.3",
+    "ts-jest": "^29.2.5",
     "typescript": "^4.4.4"
   },
   "license": "MIT"
