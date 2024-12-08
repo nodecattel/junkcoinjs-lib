@@ -14,7 +14,7 @@ interface Bip32 {
   private: number;
 }
 
-export const luckycoin: Network = {
+export const junkcoin: Network = {
   messagePrefix: '\u0018Junkcoin Signed Message:\n',
   bech32: 'jkc', // Not activated before V3
   bip32: {

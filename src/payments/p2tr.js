@@ -79,7 +79,7 @@ function p2tr(a, opts) {
     if (a.hash) return { hash: a.hash };
     return;
   });
-  const network = __1.networks.luckycoin;
+  const network = __1.networks.junkcoin;
   const o = { name: 'p2tr', network };
   lazy.prop(o, 'address', () => {
     if (!o.pubkey) return;

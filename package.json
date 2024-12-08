@@ -57,7 +57,7 @@
     "varuint-bitcoin": "1.1.2"
   },
   "devDependencies": {
-    "@types/node": "^16.11.7",
+    "@types/node": "^16.18.121",
     "@typescript-eslint/eslint-plugin": "^5.45.0",
     "@typescript-eslint/parser": "^5.45.0",
     "eslint": "^8.29.0",

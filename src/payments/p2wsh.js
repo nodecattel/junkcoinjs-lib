@@ -68,7 +68,7 @@ function p2wsh(a, opts) {
   const _rchunks = lazy.value(() => {
     return bscript.decompile(a.redeem.input);
   });
-  const network = __1.networks.luckycoin;
+  const network = __1.networks.junkcoin;
   const o = { network };
   lazy.prop(o, 'address', () => {
     if (!o.hash) return;

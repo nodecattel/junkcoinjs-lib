@@ -32,7 +32,7 @@ function p2pk(a, opts) {
   const _chunks = lazy.value(() => {
     return bscript.decompile(a.input);
   });
-  const network = __1.networks.luckycoin;
+  const network = __1.networks.junkcoin;
   const o = { name: 'p2pk', network };
   lazy.prop(o, 'output', () => {
     if (!a.pubkey) return;

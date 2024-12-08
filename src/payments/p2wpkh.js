@@ -48,7 +48,7 @@ function p2wpkh(a, opts) {
       data: Buffer.from(data),
     };
   });
-  const network = __1.networks.luckycoin;
+  const network = __1.networks.junkcoin;
   const o = { name: 'p2wpkh', network };
   lazy.prop(o, 'address', () => {
     if (!o.hash) return;

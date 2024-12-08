@@ -46,7 +46,7 @@ function p2ms(a, opts) {
     },
     a,
   );
-  const network = __1.networks.luckycoin;
+  const network = __1.networks.junkcoin;
   const o = { network };
   let chunks = [];
   let decoded = false;

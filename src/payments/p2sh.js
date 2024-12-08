@@ -42,7 +42,7 @@ function p2sh(a, opts) {
     },
     a,
   );
-  const network = __1.networks.luckycoin;
+  const network = __1.networks.junkcoin;
   const o = { network };
   const _address = lazy.value(() => {
     const payload = Buffer.from(bs58check.decode(a.address));

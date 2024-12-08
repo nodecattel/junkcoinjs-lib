@@ -10,5 +10,5 @@ interface Bip32 {
     public: number;
     private: number;
 }
-export declare const luckycoin: Network;
+export declare const junkcoin: Network;
 export {};

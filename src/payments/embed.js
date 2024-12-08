@@ -26,7 +26,7 @@ function p2data(a, opts) {
     },
     a,
   );
-  const network = __1.networks.luckycoin;
+  const network = __1.networks.junkcoin;
   const o = { name: 'embed', network };
   lazy.prop(o, 'output', () => {
     if (!a.data) return;

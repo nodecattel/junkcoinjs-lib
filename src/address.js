@@ -33,7 +33,7 @@ const FUTURE_SEGWIT_VERSION_WARNING =
   'with caution. Wallets should verify the segwit version from the output of fromBech32, ' +
   'then decide when it is safe to use which version of segwit.';
 function _toFutureSegwitAddress(output) {
-  const network = networks.luckycoin;
+  const network = networks.junkcoin;
   const data = output.slice(2);
   if (
     data.length < FUTURE_SEGWIT_MIN_SIZE ||
@@ -120,7 +120,7 @@ exports.toBech32 = toBech32;
  * decode address from output script with network, return address if matched
  */
 function fromOutputScript(output) {
-  const network = networks.luckycoin;
+  const network = networks.junkcoin;
   try {
     return payments.p2pkh({ output, network }).address;
   } catch (e) {
@@ -158,7 +158,7 @@ exports.fromOutputScript = fromOutputScript;
  * encodes address to output script with network, return output script if address matched
  */
 function toOutputScript(address) {
-  const network = networks.luckycoin;
+  const network = networks.junkcoin;
   let decodeBase58;
   let decodeBech32;
   try {
