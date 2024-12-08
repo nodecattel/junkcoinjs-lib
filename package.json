@@ -1,6 +1,6 @@
 {
   "name": "junkcoinjs-lib",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Fork of bitcoinjs-lib for JunkCoin",
   "main": "./src/index.js",
   "types": "./src/index.d.ts",
