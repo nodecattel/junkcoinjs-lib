@@ -44,7 +44,7 @@ const FUTURE_SEGWIT_VERSION_WARNING: string =
   'then decide when it is safe to use which version of segwit.';
 
 function _toFutureSegwitAddress(output: Buffer): string {
-  const network = networks.luckycoin;
+  const network = networks.junkcoin;
   const data = output.slice(2);
 
   if (
@@ -148,7 +148,7 @@ export function toBech32(
  * decode address from output script with network, return address if matched
  */
 export function fromOutputScript(output: Buffer): string {
-  const network = networks.luckycoin;
+  const network = networks.junkcoin;
 
   try {
     return payments.p2pkh({ output, network }).address as string;
@@ -188,7 +188,7 @@ export function fromOutputScript(output: Buffer): string {
  * encodes address to output script with network, return output script if address matched
  */
 export function toOutputScript(address: string): Buffer {
-  const network = networks.luckycoin;
+  const network = networks.junkcoin;
 
   let decodeBase58: Base58CheckResult | undefined;
   let decodeBech32: Bech32Result | undefined;

@@ -46,7 +46,7 @@ export function p2sh(a: Payment, opts?: PaymentOpts): Payment {
     a,
   );
 
-  const network = networks.luckycoin;
+  const network = networks.junkcoin;
   const o: Payment = { network };
 
   const _address = lazy.value(() => {

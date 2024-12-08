@@ -15,13 +15,13 @@ interface Bip32 {
 }
 
 export const luckycoin: Network = {
-  messagePrefix: '\u0018Luckycoin Signed Message:\n',
-  bech32: 'lky', // Not activated before V3
+  messagePrefix: '\u0018Junkcoin Signed Message:\n',
+  bech32: 'jkc', // Not activated before V3
   bip32: {
-    public: 0x0488b21e,
-    private: 0x0488ade4,
+    public: 0x02facafd,
+    private: 0x02fac398,
   },
-  pubKeyHash: 47,
-  scriptHash: 5,
-  wif: 176,
+  pubKeyHash: 0x2f,
+  scriptHash: 0x05,
+  wif: 0x99,
 };

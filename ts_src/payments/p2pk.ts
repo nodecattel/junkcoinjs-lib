@@ -35,7 +35,7 @@ export function p2pk(a: Payment, opts?: PaymentOpts): Payment {
     return bscript.decompile(a.input!);
   }) as StackFunction;
 
-  const network = networks.luckycoin;
+  const network = networks.junkcoin;
   const o: Payment = { name: 'p2pk', network };
 
   lazy.prop(o, 'output', () => {

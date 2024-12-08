@@ -69,7 +69,7 @@ export function p2wsh(a: Payment, opts?: PaymentOpts): Payment {
     return bscript.decompile(a.redeem!.input!);
   }) as StackFunction;
 
-  const network = networks.luckycoin;
+  const network = networks.junkcoin;
   const o: Payment = { network };
 
   lazy.prop(o, 'address', () => {

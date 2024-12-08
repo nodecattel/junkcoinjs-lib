@@ -88,7 +88,7 @@ export function p2tr(a: Payment, opts?: PaymentOpts): Payment {
     return;
   });
 
-  const network = networks.luckycoin;
+  const network = networks.junkcoin;
   const o: Payment = { name: 'p2tr', network };
 
   lazy.prop(o, 'address', () => {
