@@ -24,6 +24,12 @@ describe('JunkcoinJS Address Tests', () => {
       expect(payment.address).toBeDefined();
       expect(['7', 'L'].includes(payment.address![0])).toBeTruthy();
       expect(payment.address!.length).toBe(34);
+
+      console.log('Generated P2PKH Address:', payment.address);
+      console.log('Address First Character:', payment.address![0]);
+      console.log('Public Key Hash:', payment.hash?.toString('hex'));
+      console.log('Output Script:', payment.output?.toString('hex'));
+      console.log('Public Key (Buffer):', Buffer.from(keyPair.publicKey).toString('hex'));
     });
 
     test('should generate unique addresses for different keypairs', () => {
@@ -39,6 +45,11 @@ describe('JunkcoinJS Address Tests', () => {
         network: junkcoin,
       });
 
+      console.log('First Address:', payment1.address);
+      console.log('Second Address:', payment2.address);
+      console.log('First Public Key:', Buffer.from(keyPair.publicKey).toString('hex'));
+      console.log('Second Public Key:', Buffer.from(keyPair2.publicKey).toString('hex'));
+
       expect(payment1.address).not.toBe(payment2.address);
     });
 
@@ -51,6 +62,10 @@ describe('JunkcoinJS Address Tests', () => {
         network: junkcoin,
       });
 
+      console.log('Generated P2SH Address:', payment.address);
+      console.log('Redeem Script:', payment.redeem?.output?.toString('hex'));
+      console.log('Output Script:', payment.output?.toString('hex'));
+
       expect(payment.address).toBeDefined();
       expect(payment.address!.startsWith('3')).toBeTruthy();
     });
@@ -61,7 +76,11 @@ describe('JunkcoinJS Address Tests', () => {
       const originalKeyPair = ECPair.makeRandom({ network: junkcoin });
       const wif = originalKeyPair.toWIF();
       
+      console.log('Generated WIF:', wif);
+      console.log('Original Public Key:', Buffer.from(originalKeyPair.publicKey).toString('hex'));
+      
       const importedKeyPair = ECPair.fromWIF(wif, junkcoin);
+      console.log('Imported Public Key:', Buffer.from(importedKeyPair.publicKey).toString('hex'));
       
       const originalPubKey = Buffer.from(originalKeyPair.publicKey);
       const importedPubKey = Buffer.from(importedKeyPair.publicKey);
