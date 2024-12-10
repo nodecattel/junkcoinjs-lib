@@ -9,9 +9,13 @@ describe('JunkcoinJS Network Tests', () => {
     expect(network.messagePrefix).toBe('\u0018Junkcoin Signed Message:\n');
     console.log('Message Prefix:', network.messagePrefix);
     
-    // Bech32
-    expect(network.bech32).toBe('jkc');
-    console.log('Bech32 Prefix:', network.bech32);
+    // Bech32 (SegWit)
+    expect(network.bech32).toBe('jc1q');
+    console.log('SegWit Prefix:', network.bech32);
+    
+    // Bech32m (Taproot)
+    expect(network.bech32m).toBe('jc1p');
+    console.log('Taproot Prefix:', network.bech32m);
     
     // PubKeyHash (Legacy address version)
     expect(network.pubKeyHash).toBe(0x10);
