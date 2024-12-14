@@ -1,6 +1,7 @@
 export interface Network {
     messagePrefix: string;
     bech32: string;
+    bech32m: string;
     bip32: Bip32;
     pubKeyHash: number;
     scriptHash: number;
@@ -11,4 +12,5 @@ interface Bip32 {
     private: number;
 }
 export declare const junkcoin: Network;
+export declare const testnet: Network;
 export {};

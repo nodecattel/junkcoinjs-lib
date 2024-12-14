@@ -25,9 +25,9 @@ export const junkcoin: Network = {
     public: 0x0488b21e,
     private: 0x0488ade4,
   },
-  pubKeyHash: 0x10,
+  pubKeyHash: 0x11,
   scriptHash: 0x05,
-  wif: 0x99,
+  wif: 0x90,
 };
 
 export const testnet: Network = {
@@ -35,10 +35,10 @@ export const testnet: Network = {
   bech32: 'tj1q', // For SegWit addresses (when activated)
   bech32m: 'tj1p', // For Taproot addresses (when activated)
   bip32: {
-    public: 0x02facafd,
-    private: 0x02fac398,
+    public: 0x043587cf,
+    private: 0x04358394,
   },
-  pubKeyHash: 0x16,
-  scriptHash: 0x05,
-  wif: 0x96,
+  pubKeyHash: 0x6f,
+  scriptHash: 0xc4,
+  wif: 0xef,
 };
