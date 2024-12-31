@@ -1,7 +1,6 @@
 // networks.ts
 // https://en.bitcoin.it/wiki/List_of_address_prefixes
 // Dogecoin BIP32 is a proposed standard: https://bitcointalk.org/index.php?topic=409731
-
 export interface Network {
   messagePrefix: string;
   bech32: string;
@@ -32,13 +31,13 @@ export const junkcoin: Network = {
 
 export const testnet: Network = {
   messagePrefix: '\u0018Junkcoin Testnet Signed Message:\n',
-  bech32: 'tj1q', // For SegWit addresses (when activated)
-  bech32m: 'tj1p', // For Taproot addresses (when activated)
+  bech32: 'tjc1q',     // For SegWit addresses (when activated)
+  bech32m: 'tjc1p',    // For Taproot addresses (when activated)
   bip32: {
-    public: 0x043587cf,
-    private: 0x04358394,
+    public: 0x02facafd,  // From chainparams EXT_PUBLIC_KEY
+    private: 0x02fac398, // From chainparams EXT_SECRET_KEY
   },
-  pubKeyHash: 0x6f,
-  scriptHash: 0xc4,
-  wif: 0xef,
+  pubKeyHash: 0x6f,    // From chainparams PUBKEY_ADDRESS
+  scriptHash: 0x05,    // From chainparams SCRIPT_ADDRESS
+  wif: 0xef,          // From chainparams SECRET_KEY
 };

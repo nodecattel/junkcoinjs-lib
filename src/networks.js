@@ -1,7 +1,4 @@
 'use strict';
-// networks.ts
-// https://en.bitcoin.it/wiki/List_of_address_prefixes
-// Dogecoin BIP32 is a proposed standard: https://bitcointalk.org/index.php?topic=409731
 Object.defineProperty(exports, '__esModule', { value: true });
 exports.testnet = exports.junkcoin = void 0;
 exports.junkcoin = {
@@ -18,13 +15,13 @@ exports.junkcoin = {
 };
 exports.testnet = {
   messagePrefix: '\u0018Junkcoin Testnet Signed Message:\n',
-  bech32: 'tj1q',
-  bech32m: 'tj1p',
+  bech32: 'tjc1q',
+  bech32m: 'tjc1p',
   bip32: {
-    public: 0x043587cf,
-    private: 0x04358394,
+    public: 0x02facafd,
+    private: 0x02fac398, // From chainparams EXT_SECRET_KEY
   },
   pubKeyHash: 0x6f,
-  scriptHash: 0xc4,
-  wif: 0xef,
+  scriptHash: 0x05,
+  wif: 0xef, // From chainparams SECRET_KEY
 };
